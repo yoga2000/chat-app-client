@@ -5,7 +5,7 @@ import axiosInstance from "../axios/interceptor";
 export const UserContext = createContext(null);
 
 export const UserProvider = ({ children }) => {
-  let url = "http://192.168.103.172:4000";
+  let url = import.meta.env.VITE_API_URL;
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState([]);

@@ -2,9 +2,10 @@ import axios from "axios";
 
 // const { token } = useContext(UserContext);
 axios.defaults.withCredentials = true;
+const url = import.meta.env.VITE_API_URL;
 
 const axiosInstance = axios.create({
-  baseURL: "http://192.168.103.172:4000",
+  baseURL: url,
   headers: {
     "Content-Type": "application/json",
   },
