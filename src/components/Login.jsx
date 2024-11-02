@@ -20,17 +20,16 @@ const Login = () => {
     setUser((prev) => ({ ...prev, [name]: value }));
   };
   const submitHandler = async (e) => {
-    console.log(url);
     e.preventDefault();
     try {
       const response = await axios.post(`${url}/api/user/login`, user);
-      
+
       if (response.data.message === "success") {
         localStorage.setItem("userEmail", response.data.result);
         localStorage.setItem("accessToken", response.data.accessToken);
         localStorage.setItem("refreshToken", response.data.refreshToken);
         navigate("/chat");
-      }else{
+      } else {
         alert("Login Failed");
       }
     } catch (error) {
@@ -42,14 +41,9 @@ const Login = () => {
       <section className="relative flex  lg:h-screen lg:items-center">
         <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24">
           <div className="mx-auto max-w-lg text-center">
-            <h1 className="text-2xl font-bold sm:text-3xl">
-              Welcome to the Chat App!
-            </h1>
+            <h1 className="text-2xl font-bold sm:text-3xl">Welcome to the Chat App!</h1>
 
-            <p className="mt-4 text-gray-500">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Et libero
-              nulla eaque error neque ipsa culpa autem, at itaque nostrum!
-            </p>
+            <p className="mt-4 text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Et libero nulla eaque error neque ipsa culpa autem, at itaque nostrum!</p>
           </div>
 
           <form className="mx-auto mb-0 mt-8 max-w-md space-y-8">
@@ -103,11 +97,7 @@ const Login = () => {
                 </Link>
               </p>
 
-              <button
-                onClick={submitHandler}
-                type="submit"
-                className="inline-block rounded-lg bg-[#6c63ff] px-5 py-3 text-sm font-medium text-white"
-              >
+              <button onClick={submitHandler} type="submit" className="inline-block rounded-lg bg-[#6c63ff] px-5 py-3 text-sm font-medium text-white">
                 Sign in
               </button>
             </div>

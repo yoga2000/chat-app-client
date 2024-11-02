@@ -17,7 +17,6 @@ export const UserProvider = ({ children }) => {
       const response = await axiosInstance.get(`/api/user/get/users/`);
       if (response.data.message === "success") {
         setData(response.data.data);
-        console.log(response.data.data, "data");
         setLoading(false);
       }
     } catch (error) {
@@ -37,7 +36,6 @@ export const UserProvider = ({ children }) => {
   const getMessages = async (chat_id) => {
     try {
       const response = await axios.get(`${url}/api/chat/get/messages/${chat_id}`);
-      console.log(response.data, "++++");
       setMessagesData(response.data);
     } catch (error) {
       console.log(error.message);

@@ -41,15 +41,15 @@ const Sidebar = () => {
     getUsers();
     getSingleUser();
     socket.emit("user_online", email);
-    // const handleVisibilityChange = () => {
-    //   if (document.visibilityState === "visible") {
-    //     socket.emit("user_online", email); // Set online again when tab is focused
-    //   } else {
-    //     setInterval(() => {
-    //       socket.emit("leave_user", email); // Set offline when tab is hidden
-    //     }, 1000);
-    //   }
-    // };
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        socket.emit("user_online", email); // Set online again when tab is focused
+      } else {
+        setInterval(() => {
+          socket.emit("leave_user", email); // Set offline when tab is hidden
+        }, 2000);
+      }
+    };
 
     const handleLoad = () => {
       socket.emit("user_online", email);
@@ -74,13 +74,13 @@ const Sidebar = () => {
     window.addEventListener("blur", handleUnload);
     window.addEventListener("focus", handleLoad);
 
-    // document.addEventListener("visibilitychange", handleVisibilityChange);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
       window.removeEventListener("blur", handleUnload);
       window.removeEventListener("focus", handleLoad);
       socket.emit("leave_user", email);
-      // document.removeEventListener("visibilitychange", handleVisibilityChange);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       socket.off("user_online");
       socket.off("user_offline");
       socket.off("join_room");
@@ -131,7 +131,6 @@ const Sidebar = () => {
               <div className="w-[25%] ">
                 <CgProfile className="text-5xl mx-auto text-green-500 " />
               </div>
-              {console.log(item.unreadMsg[0]?.unreadCount)}
               <ul className="  w-[75%]">
                 <li className="text-xl font-semibold">{item.name}</li>
 

@@ -15,7 +15,6 @@ const axiosInstance = axios.create({
 const refreshToken = async () => {
   try {
     const refreshToken = localStorage.getItem("refreshToken");
-    console.log(refreshToken, "intercerptorp");
     const response = await axiosInstance.post("/api/user/refresh", {
       refreshToken,
     });
@@ -24,7 +23,6 @@ const refreshToken = async () => {
 
     return response.data.accessToken;
   } catch (err) {
-    console.log(err);
     throw err;
   }
 };
@@ -47,7 +45,6 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async (error) => {
-    console.log(error, "interceptor");
     if (error.response.status === 401 || error.response) {
       const originalRequest = error.config;
       try {

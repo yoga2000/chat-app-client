@@ -11,7 +11,6 @@ import "../helpers/messageBubble.css";
 const ChatBox = () => {
   const [message, setMessage] = useState("");
   const { roomData, getMessages, messagesData, setMessagesData, getUsers } = useContext(UserContext);
-  console.log(messagesData, "messages");
   const [typing, setTyping] = useState(null);
 
   useEffect(() => {
@@ -57,7 +56,6 @@ const ChatBox = () => {
     };
     socket.emit("send-message", data);
     setMessage("");
-    console.log("emitted");
   };
 
   const handleKeyDown = (e) => {
