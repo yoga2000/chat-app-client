@@ -31,8 +31,10 @@ const Signup = () => {
     try {
       const response = await axios.post(`${url}/api/user/signup`, user);
       navigate("/login");
+      setLoading(false);
     } catch (error) {
       alert(`${error.response.data.message}`);
+      setLoading(false);
     } finally {
       setLoading(false);
     }

@@ -34,11 +34,14 @@ const Login = () => {
         localStorage.setItem("accessToken", response.data.accessToken);
         localStorage.setItem("refreshToken", response.data.refreshToken);
         navigate("/chat");
+        setLoading(false);
       } else {
         alert("Login Failed");
+        setLoading(false);
       }
     } catch (error) {
       alert(`${error.response.data.message}`);
+      setLoading(false);
     } finally {
       setLoading(false);
     }
