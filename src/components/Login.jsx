@@ -24,8 +24,17 @@ const Login = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
-    if (user.email === "" || user.password === "") return alert("Please fill all the fields");
-    if (!user.email.includes("@") && !user.email.includes(".")) return alert("Please enter a valid email");
+    if (user.email === "" || user.password === "") {
+      setLoading(false);
+      alert("Please fill all the fields");
+      return;
+    }
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(user.email)) {
+      setLoading(false);
+      alert("Please enter a valid email");
+      return;
+    }
     try {
       const response = await axios.post(`${url}/api/user/login`, user);
 

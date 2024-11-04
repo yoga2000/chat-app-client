@@ -25,16 +25,27 @@ const Signup = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
-    if (user.name === "" || user.email === "" || user.password === "") return alert("Please fill all the fields");
-    if (user.password.length < 6) return alert("Password must be at least 6 characters");
-    if (!user.email.includes("@") && !user.email.includes(".")) return alert("Please enter a valid email");
+    if (!user.name || !user.email || !user.password) {
+      alert("Please fill all the fields");
+      setLoading(false);
+      return;
+    }
+    if (user.password.length < 6) {
+      alert("Password must be at least 6 characters");
+      setLoading(false);
+      return;
+    }
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(user.email)) {
+      alert("Please enter a valid email");
+      setLoading(false);
+      return;
+    }
     try {
       const response = await axios.post(`${url}/api/user/signup`, user);
       navigate("/login");
-      setLoading(false);
     } catch (error) {
       alert(`${error.response.data.message}`);
-      setLoading(false);
     } finally {
       setLoading(false);
     }
