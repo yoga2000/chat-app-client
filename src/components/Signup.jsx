@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/userContext";
+import Loader from "../helpers/Loader";
 
 const Signup = () => {
   const { url } = useContext(UserContext);
@@ -50,6 +51,8 @@ const Signup = () => {
       setLoading(false);
     }
   };
+
+  if (loading) return <Loader />;
 
   return (
     <div>

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import { UserContext } from "../context/userContext";
+import Loader from "../helpers/Loader";
 
 const Login = () => {
   const { url } = useContext(UserContext);
@@ -55,6 +56,8 @@ const Login = () => {
       setLoading(false);
     }
   };
+
+  if (loading) return <Loader />;
   return (
     <div>
       <section className="relative flex  lg:h-screen lg:items-center">
