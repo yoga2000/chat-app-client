@@ -15,12 +15,17 @@ const Login = () => {
     password: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleInputChangeHandler = (e) => {
     const { name, value } = e.target;
     setUser((prev) => ({ ...prev, [name]: value }));
   };
   const submitHandler = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    if (user.email === "" || user.password === "") return alert("Please fill all the fields");
+    if (!user.email.includes("@") && !user.email.includes(".")) return alert("Please enter a valid email");
     try {
       const response = await axios.post(`${url}/api/user/login`, user);
 
@@ -33,7 +38,9 @@ const Login = () => {
         alert("Login Failed");
       }
     } catch (error) {
-      console.log(error);
+      alert(`${error.response.data.message}`);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -97,8 +104,13 @@ const Login = () => {
                 </Link>
               </p>
 
-              <button onClick={submitHandler} type="submit" className="inline-block rounded-lg bg-[#6c63ff] px-5 py-3 text-sm font-medium text-white">
-                Sign in
+              <button
+                onClick={submitHandler}
+                type="submit"
+                className={`inline-block rounded-lg bg-[#6c63ff] px-5 py-3 text-sm font-medium text-white ${loading ? "bg-green-500 cursor-not-allowed" : ""}`}
+                disabled={loading}
+              >
+                {loading ? "Loading..." : "Sign in"}
               </button>
             </div>
           </form>
