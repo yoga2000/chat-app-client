@@ -57,7 +57,12 @@ const Login = () => {
     }
   };
 
-  if (loading) return <Loader />;
+  if (loading)
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <Loader />
+      </div>
+    );
   return (
     <div>
       <section className="relative flex  lg:h-screen lg:items-center">
